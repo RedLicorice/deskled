@@ -1,0 +1,28 @@
+deskled/deskled-6d26/availability online
+homeassistant/light/deskled_576d26/light/config {"name":null,"uniq_id":"deskled_576d26_light","schema":"json","stat_t":"deskled/deskled-6d26/state","cmd_t":"deskled/deskled-6d26/set","brightness":true,"sup_clrm":["rgb"],"effect":true,"effect_list":["solid","rgbfade","breathe","colorjump","candle","strobe","purplefire"],"flash_time_short":2,"flash_time_long":10,"dev":{"ids":["deskled_576d26"],"name":"deskled-6d26","mf":"DIY","mdl":"DeskLED TYWE3L RGB","sw":"1.4.1","cu":"http://192.168.1.157/"},"avty_t":"deskled/deskled-6d26/availability"}
+homeassistant/number/deskled_576d26/speed/config {"name":"Effect speed","uniq_id":"deskled_576d26_speed","stat_t":"deskled/deskled-6d26/state","val_tpl":"{{ value_json.speed }}","cmd_t":"deskled/deskled-6d26/speed/set","min":1,"max":255,"mode":"slider","ent_cat":"config","dev":{"ids":["deskled_576d26"],"name":"deskled-6d26","mf":"DIY","mdl":"DeskLED TYWE3L RGB","sw":"1.4.1","cu":"http://192.168.1.157/"},"avty_t":"deskled/deskled-6d26/availability"}
+deskled/deskled-6d26/state {"state":"ON","brightness":70,"color_mode":"rgb","color":{"r":75,"g":0,"b":137},"effect":"purplefire","speed":77}
+deskled/deskled-6d26/set {"state":"OFF"}
+deskled/deskled-6d26/state {"state":"OFF","brightness":70,"color_mode":"rgb","color":{"r":75,"g":0,"b":137},"effect":"purplefire","speed":77}
+deskled/deskled-6d26/set {"state":"ON","brightness":180,"color":{"r":0,"g":128,"b":255}}
+deskled/deskled-6d26/state {"state":"ON","brightness":180,"color_mode":"rgb","color":{"r":0,"g":128,"b":255},"effect":"purplefire","speed":77}
+deskled/deskled-6d26/set {"effect":"breathe","transition":2}
+deskled/deskled-6d26/state {"state":"ON","brightness":180,"color_mode":"rgb","color":{"r":0,"g":128,"b":255},"effect":"breathe","speed":77}
+deskled/deskled-6d26/speed/set 200
+deskled/deskled-6d26/state {"state":"ON","brightness":180,"color_mode":"rgb","color":{"r":0,"g":128,"b":255},"effect":"breathe","speed":200}
+deskled/deskled-6d26/set {"flash":"short"}
+deskled/deskled-6d26/state {"state":"ON","brightness":180,"color_mode":"rgb","color":{"r":0,"g":128,"b":255},"effect":"strobe","speed":200}
+deskled/deskled-6d26/state {"state":"ON","brightness":180,"color_mode":"rgb","color":{"r":0,"g":128,"b":255},"effect":"breathe","speed":200}
+deskled/deskled-6d26/set {"effect":"strobe","color":{"r":255,"g":0,"b":0},"duration":4000}
+deskled/deskled-6d26/state {"state":"ON","brightness":180,"color_mode":"rgb","color":{"r":255,"g":0,"b":0},"effect":"strobe","speed":200}
+deskled/deskled-6d26/state {"state":"ON","brightness":180,"color_mode":"rgb","color":{"r":0,"g":128,"b":255},"effect":"breathe","speed":200}
+deskled/deskled-6d26/set {"effect":"nonexistent"}
+deskled/deskled-6d26/state {"state":"ON","brightness":180,"color_mode":"rgb","color":{"r":0,"g":128,"b":255},"effect":"breathe","speed":200}
+deskled/deskled-6d26/set not json
+deskled/deskled-6d26/state {"state":"ON","brightness":99,"color_mode":"rgb","color":{"r":0,"g":128,"b":255},"effect":"candle","speed":200}
+deskled/deskled-6d26/availability offline
+deskled/deskled-6d26/availability online
+homeassistant/light/deskled_576d26/light/config {"name":null,"uniq_id":"deskled_576d26_light","schema":"json","stat_t":"deskled/deskled-6d26/state","cmd_t":"deskled/deskled-6d26/set","brightness":true,"sup_clrm":["rgb"],"effect":true,"effect_list":["solid","rgbfade","breathe","colorjump","candle","strobe","purplefire"],"flash_time_short":2,"flash_time_long":10,"dev":{"ids":["deskled_576d26"],"name":"deskled-6d26","mf":"DIY","mdl":"DeskLED TYWE3L RGB","sw":"1.4.1","cu":"http://192.168.1.157/"},"avty_t":"deskled/deskled-6d26/availability"}
+homeassistant/number/deskled_576d26/speed/config {"name":"Effect speed","uniq_id":"deskled_576d26_speed","stat_t":"deskled/deskled-6d26/state","val_tpl":"{{ value_json.speed }}","cmd_t":"deskled/deskled-6d26/speed/set","min":1,"max":255,"mode":"slider","ent_cat":"config","dev":{"ids":["deskled_576d26"],"name":"deskled-6d26","mf":"DIY","mdl":"DeskLED TYWE3L RGB","sw":"1.4.1","cu":"http://192.168.1.157/"},"avty_t":"deskled/deskled-6d26/availability"}
+deskled/deskled-6d26/state {"state":"ON","brightness":99,"color_mode":"rgb","color":{"r":0,"g":128,"b":255},"effect":"candle","speed":200}
+deskled/deskled-6d26/availability offline

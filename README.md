@@ -13,7 +13,7 @@ IRLZ34N low-side MOSFETs on GPIO12 (red), GPIO13 (green) and GPIO14 (blue).
 - Wi-Fi console over telnet (port 23) mirroring the serial console
 - Signed OTA updates (only images signed with your key are accepted)
 - Admin login: session login in the web UI, HTTP Digest for tools; passwords are never stored in plain text
-- MQTT with Home Assistant discovery — **untested**, no broker was available during development
+- MQTT with Home Assistant discovery — tested against Mosquitto (discovery, commands, state, last will, broker auth); not yet tried inside Home Assistant itself
 
 ## Hardware
 
@@ -53,6 +53,23 @@ Set `upload_port` in `platformio.ini` to your device's hostname or IP.
 3. Log in at `http://deskled-xxxx.local/` with the default admin password `deskled-ota` and change it under Security.
 
 Serial and telnet commands: `wifi`, `ip`, `mqtt`, `password`, `scan`, `status`, `reboot`, `help`.
+
+## Home Assistant
+
+Enable MQTT in the web UI (or `mqtt <host> [port] [user] [pass]` over serial) and the device publishes
+discovery, so it appears as a light with brightness, RGB, the effect list (built-ins plus your scripts)
+and an "Effect speed" number. Topics live under `deskled/<hostname>/`:
+`state` (retained), `set`, `speed/set` and `availability` (retained, last will).
+
+`set` takes Home Assistant's JSON light schema, plus two extras: `duration` (ms) runs the change as a
+temporary effect, and `flash` maps to a 2 s or 10 s strobe.
+
+```sh
+mosquitto_pub -h broker -t deskled/deskled-xxxx/set \
+  -m '{"effect":"strobe","color":{"r":255,"g":0,"b":0},"duration":10000}'
+```
+
+For Apple Home, add Home Assistant's HomeKit Bridge integration and include the light.
 
 ## API
 
