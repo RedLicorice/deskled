@@ -7,6 +7,7 @@ firmware/.pio/
 # Firmware signing: the private key must never be published; the header is generated from public.key at build time
 firmware/keys/private.key
 firmware/include/signing_pubkey.h
+firmware/include/openapi_json.h
 
 # stray capture files
 *.log
