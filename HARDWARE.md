@@ -30,40 +30,10 @@ Strip and enclosure aside, this is a few euros of parts.
 
 ## Schematic
 
-```mermaid
-flowchart TB
-  PS1["PS1<br>12V PSU"] -->|12V| U2["U2<br>buck 12V to 3.3V"]
-  PS1 -->|"+12V"| J1["J1 strip<br>12V / R / G / B"]
-  U2 -->|3.3V| RAIL["3.3V rail<br>C1 470uF + C2 100nF to GND"]
+![DeskLED schematic](docs/schematic.png)
 
-  RAIL --> VCC["U1 VCC"]
-  RAIL -->|"R7 10k"| EN["U1 EN<br>C3 100nF to GND"]
-  RAIL -->|"R8 10k"| RST["U1 RST<br>SW1 to GND"]
-  RAIL -->|"R9 10k"| IO0["U1 GPIO0<br>SW2 to GND"]
-  RAIL -->|"R10 10k"| IO2["U1 GPIO2"]
-  IO15["U1 GPIO15"] -->|"R11 10k"| GND(("common GND"))
-
-  IO12["U1 GPIO12"] -->|"R1 100R"| Q1["Q1 gate<br>R4 10k to GND"]
-  IO13["U1 GPIO13"] -->|"R2 100R"| Q2["Q2 gate<br>R5 10k to GND"]
-  IO14["U1 GPIO14"] -->|"R3 100R"| Q3["Q3 gate<br>R6 10k to GND"]
-
-  J1 -->|"R wire"| Q1D["Q1 drain"]
-  J1 -->|"G wire"| Q2D["Q2 drain"]
-  J1 -->|"B wire"| Q3D["Q3 drain"]
-  Q1 -.-> Q1D
-  Q2 -.-> Q2D
-  Q3 -.-> Q3D
-  Q1D -->|"source"| GND
-  Q2D -->|"source"| GND
-  Q3D -->|"source"| GND
-
-  TX["U1 TXD0"] --> ADP["USB-serial adapter<br>3.3V logic, first flash only"]
-  ADP --> RX["U1 RXD0"]
-  ADP --- GND
-  VCC --- GND
-  U2 --- GND
-  PS1 --- GND
-```
+Sources: [docs/schematic.svg](docs/schematic.svg), drawn by [docs/schematic.py](docs/schematic.py)
+(`python3 docs/schematic.py`, then re-render the PNG if you change it).
 
 Per channel, e.g. red:
 
@@ -76,7 +46,6 @@ Per channel, e.g. red:
 
   +12V ─── strip red segment ─── drain Q1 ─── source Q1 ─── GND
 ```
-
 
 ### Connection table
 

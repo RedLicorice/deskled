@@ -1,0 +1,283 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1620 1070" width="1620" height="1070">
+<rect width="1620" height="1070" fill="#fff"/>
+<text x="810.0" y="38" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="24" font-weight="bold" fill="#111" text-anchor="middle">DeskLED — ESP8266 (TYWE3L) RGB strip controller</text>
+<path d="M110,70 L1425,70" fill="none" stroke="#d33" stroke-width="2.6" stroke-linecap="round"/>
+<text x="150" y="56" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#d33" text-anchor="start">+12V</text>
+<path d="M150,920 L1400,920" fill="none" stroke="#222" stroke-width="2.6" stroke-linecap="round"/>
+<text x="144" y="926" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#111" text-anchor="end">GND</text>
+<path d="M320,250 L1010,250" fill="none" stroke="#e07b00" stroke-width="2.6" stroke-linecap="round"/>
+<text x="314" y="238" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#e07b00" text-anchor="end">+3.3V</text>
+<circle cx="72" cy="70" r="6" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<circle cx="72" cy="920" r="6" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<path d="M78,70 L110,70" fill="none" stroke="#d33" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M78,920 L150,920" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="72" y="48" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#111" text-anchor="middle">PS1</text>
+<text x="72" y="948" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#111" text-anchor="middle">12V PSU</text>
+<rect x="170" y="120" width="150" height="80" rx="6" fill="#eef3fb" stroke="#2c4a7c" stroke-width="2.2"/>
+<text x="245.0" y="152.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#111" text-anchor="middle">U2 buck</text>
+<text x="245.0" y="172.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#111" text-anchor="middle">12V → 3.3V</text>
+<path d="M210,70 L210,120" fill="none" stroke="#d33" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="210" cy="70" r="4.5" fill="#d33"/>
+<path d="M280,200 L280,920" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M320,160 L350,160 L350,250" fill="none" stroke="#e07b00" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="350" cy="250" r="4.5" fill="#e07b00"/>
+<path d="M365,250 L365,273.0" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M347,273.0 L383,273.0" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M347,283.0 L383,283.0" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M365,283.0 L365,306" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="389" y="276.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">C1</text>
+<text x="389" y="293.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">470µF</text>
+<path d="M365,306 L365,316" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M349,316 L381,316" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M355,322 L375,322" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M360,328 L370,328" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="365" cy="250" r="4.5" fill="#e07b00"/>
+<path d="M415,250 L415,273.0" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M397,273.0 L433,273.0" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M397,283.0 L433,283.0" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M415,283.0 L415,306" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="439" y="276.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">C2</text>
+<text x="439" y="293.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">100nF</text>
+<path d="M415,306 L415,316" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M399,316 L431,316" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M405,322 L425,322" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M410,328 L420,328" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="415" cy="250" r="4.5" fill="#e07b00"/>
+<rect x="760" y="380" width="250" height="350" rx="6" fill="#eef3fb" stroke="#2c4a7c" stroke-width="2.2"/>
+<text x="885.0" y="547.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#111" text-anchor="middle">U1  TYWE3L</text>
+<text x="885.0" y="567.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#111" text-anchor="middle">ESP8266 · 2MB</text>
+<path d="M740,410 L760,410" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="770" y="415" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">VCC</text>
+<path d="M740,450 L760,450" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="770" y="455" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">EN</text>
+<path d="M740,490 L760,490" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="770" y="495" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">RST</text>
+<path d="M740,530 L760,530" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="770" y="535" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">GPIO0</text>
+<path d="M740,570 L760,570" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="770" y="575" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">GPIO2</text>
+<path d="M740,610 L760,610" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="770" y="615" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">GPIO15</text>
+<path d="M740,650 L760,650" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="770" y="655" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">TXD0</text>
+<path d="M740,690 L760,690" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="770" y="695" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">RXD0</text>
+<path d="M1010,430 L1030,430" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="1000" y="435" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="end">GPIO12</text>
+<path d="M1010,490 L1030,490" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="1000" y="495" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="end">GPIO13</text>
+<path d="M1010,550 L1030,550" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="1000" y="555" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="end">GPIO14</text>
+<path d="M1010,700 L1030,700" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="1000" y="705" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="end">GND</text>
+<path d="M740,410 L710,410 L710,250" fill="none" stroke="#e07b00" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="710" cy="250" r="4.5" fill="#e07b00"/>
+<path d="M500,250 L500,268.0" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<rect x="493.0" y="268.0" width="14" height="34" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<path d="M500,302.0 L500,320" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="514" y="282.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">R10</text>
+<text x="514" y="298.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">10k</text>
+<path d="M500,320 L500,570 L740,570" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="500" cy="250" r="4.5" fill="#e07b00"/>
+<path d="M560,250 L560,268.0" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<rect x="553.0" y="268.0" width="14" height="34" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<path d="M560,302.0 L560,320" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="574" y="282.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">R9</text>
+<text x="574" y="298.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">10k</text>
+<path d="M560,320 L560,530 L740,530" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="560" cy="250" r="4.5" fill="#e07b00"/>
+<path d="M620,250 L620,268.0" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<rect x="613.0" y="268.0" width="14" height="34" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<path d="M620,302.0 L620,320" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="634" y="282.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">R8</text>
+<text x="634" y="298.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">10k</text>
+<path d="M620,320 L620,490 L740,490" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="620" cy="250" r="4.5" fill="#e07b00"/>
+<path d="M680,250 L680,268.0" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<rect x="673.0" y="268.0" width="14" height="34" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<path d="M680,302.0 L680,320" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="694" y="282.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">R7</text>
+<text x="694" y="298.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">10k</text>
+<path d="M680,320 L680,450 L740,450" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="680" cy="250" r="4.5" fill="#e07b00"/>
+<path d="M680,450 L680,740" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="680" cy="450" r="4.5" fill="#222"/>
+<path d="M680,740 L680,763.0" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M662,763.0 L698,763.0" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M662,773.0 L698,773.0" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M680,773.0 L680,796" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="704" y="766.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">C3</text>
+<text x="704" y="783.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">100nF</text>
+<path d="M680,796 L680,806" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M664,806 L696,806" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M670,812 L690,812" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M675,818 L685,818" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M620,490 L620,770" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="620" cy="490" r="4.5" fill="#222"/>
+<path d="M620,770 L620,788" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M620,788 L636,776" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="620" cy="788" r="3.2" fill="#222"/>
+<circle cx="620" cy="810" r="3.2" fill="#222"/>
+<path d="M620,810 L620,830" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="640" y="804" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">SW1 reset</text>
+<path d="M620,830 L620,840" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M604,840 L636,840" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M610,846 L630,846" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M615,852 L625,852" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M560,530 L560,800" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="560" cy="530" r="4.5" fill="#222"/>
+<path d="M560,800 L560,818" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M560,818 L576,806" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="560" cy="818" r="3.2" fill="#222"/>
+<circle cx="560" cy="840" r="3.2" fill="#222"/>
+<path d="M560,840 L560,860" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="580" y="834" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">SW2 flash</text>
+<path d="M560,860 L560,870" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M544,870 L576,870" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M550,876 L570,876" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M555,882 L565,882" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M740,610 L390,610" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M390,610 L390,628.0" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<rect x="383.0" y="628.0" width="14" height="34" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<path d="M390,662.0 L390,680" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="376" y="642.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="end">R11</text>
+<text x="376" y="658.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="end">10k</text>
+<path d="M390,680 L390,690" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M374,690 L406,690" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M380,696 L400,696" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M385,702 L395,702" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<rect x="160" y="790" width="170" height="120" rx="6" fill="#f6f2e8" stroke="#2c4a7c" stroke-width="2.2"/>
+<text x="245" y="815" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="15" font-weight="bold" fill="#111" text-anchor="middle">J2 USB-serial</text>
+<text x="245" y="833" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#111" text-anchor="middle">(flashing only)</text>
+<path d="M330,855 L350,855" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="322" y="860" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="end">TXD0</text>
+<path d="M330,880 L350,880" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="322" y="885" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="end">RXD0</text>
+<path d="M330,905 L350,905" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="322" y="910" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="end">GND</text>
+<path d="M740,650 L500,650 L500,855 L350,855" fill="none" stroke="#2266dd" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M740,690 L470,690 L470,880 L350,880" fill="none" stroke="#2266dd" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M350,905 L390,905 L390,920" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="390" cy="920" r="4.5" fill="#222"/>
+<path d="M1030,700 L1060,700 L1060,920" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="1060" cy="920" r="4.5" fill="#222"/>
+<path d="M1030,430 L1090,430 L1090,430" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1090,430 L1113.0,430" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<rect x="1113.0" y="423.0" width="34" height="14" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<path d="M1147.0,430 L1170,430" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="1130.0" y="416" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="middle">R1</text>
+<text x="1130.0" y="456" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="middle">100Ω</text>
+<path d="M1170,430 L1204,430" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1204,400 L1204,460" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,400 L1216,416" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,422 L1216,438" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,444 L1216,460" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,400 L1250,400" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,400 L1216,408" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,460 L1250,460" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,460 L1216,452" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,430 L1250,430" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1250,400 L1250,460" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1230,423 L1230,437 L1218,430 Z" fill="#222"/>
+<text x="1262" y="424" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#111" text-anchor="start">Q1</text>
+<text x="1262" y="442" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">IRLZ34N</text>
+<circle cx="1184" cy="430" r="4.5" fill="#222"/>
+<path d="M1184,430 L1184,446" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1184,446 L1184,457.0" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<rect x="1177.0" y="457.0" width="14" height="34" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<path d="M1184,491.0 L1184,502" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="1170" y="471.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="end">R4</text>
+<text x="1170" y="487.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="end">10k</text>
+<path d="M1184,502 L1184,512" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1168,512 L1200,512" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1174,518 L1194,518" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1179,524 L1189,524" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1250,400 L1300,400 L1300,400 L1440,400" fill="none" stroke="#d33" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1250,460 L1250,494 L1330,494 L1330,920" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="1330" cy="920" r="4.5" fill="#222"/>
+<path d="M1030,490 L1090,490 L1090,600" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1090,600 L1113.0,600" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<rect x="1113.0" y="593.0" width="34" height="14" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<path d="M1147.0,600 L1170,600" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="1130.0" y="586" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="middle">R2</text>
+<text x="1130.0" y="626" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="middle">100Ω</text>
+<path d="M1170,600 L1204,600" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1204,570 L1204,630" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,570 L1216,586" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,592 L1216,608" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,614 L1216,630" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,570 L1250,570" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,570 L1216,578" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,630 L1250,630" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,630 L1216,622" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,600 L1250,600" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1250,570 L1250,630" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1230,593 L1230,607 L1218,600 Z" fill="#222"/>
+<text x="1262" y="594" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#111" text-anchor="start">Q2</text>
+<text x="1262" y="612" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">IRLZ34N</text>
+<circle cx="1184" cy="600" r="4.5" fill="#222"/>
+<path d="M1184,600 L1184,616" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1184,616 L1184,627.0" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<rect x="1177.0" y="627.0" width="14" height="34" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<path d="M1184,661.0 L1184,672" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="1170" y="641.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="end">R5</text>
+<text x="1170" y="657.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="end">10k</text>
+<path d="M1184,672 L1184,682" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1168,682 L1200,682" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1174,688 L1194,688" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1179,694 L1189,694" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1250,570 L1270,570 L1270,460 L1440,460" fill="none" stroke="#1a9b4a" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1250,630 L1250,664 L1360,664 L1360,920" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="1360" cy="920" r="4.5" fill="#222"/>
+<path d="M1030,550 L1090,550 L1090,770" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1090,770 L1113.0,770" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<rect x="1113.0" y="763.0" width="34" height="14" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<path d="M1147.0,770 L1170,770" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="1130.0" y="756" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="middle">R3</text>
+<text x="1130.0" y="796" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="middle">100Ω</text>
+<path d="M1170,770 L1204,770" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1204,740 L1204,800" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,740 L1216,756" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,762 L1216,778" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,784 L1216,800" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,740 L1250,740" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,740 L1216,748" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,800 L1250,800" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,800 L1216,792" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1216,770 L1250,770" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1250,740 L1250,800" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1230,763 L1230,777 L1218,770 Z" fill="#222"/>
+<text x="1262" y="764" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#111" text-anchor="start">Q3</text>
+<text x="1262" y="782" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="start">IRLZ34N</text>
+<circle cx="1184" cy="770" r="4.5" fill="#222"/>
+<path d="M1184,770 L1184,786" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1184,786 L1184,797.0" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<rect x="1177.0" y="797.0" width="14" height="34" fill="#fff" stroke="#222" stroke-width="2.2"/>
+<path d="M1184,831.0 L1184,842" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<text x="1170" y="811.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="end">R6</text>
+<text x="1170" y="827.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#111" text-anchor="end">10k</text>
+<path d="M1184,842 L1184,852" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1168,852 L1200,852" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1174,858 L1194,858" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1179,864 L1189,864" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1250,740 L1240,740 L1240,520 L1440,520" fill="none" stroke="#2266dd" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M1250,800 L1250,834 L1390,834 L1390,920" fill="none" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="1390" cy="920" r="4.5" fill="#222"/>
+<rect x="1440" y="300" width="150" height="280" rx="6" fill="#f3f0fa" stroke="#2c4a7c" stroke-width="2.2"/>
+<text x="1515.0" y="432.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="16" font-weight="bold" fill="#111" text-anchor="middle">RGB strip</text>
+<text x="1515.0" y="452.0" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#111" text-anchor="middle">common anode</text>
+<path d="M1420,340 L1440,340" fill="none" stroke="#d33" stroke-width="2.2" stroke-linecap="round"/>
+<text x="1452" y="345" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#d33" text-anchor="start">+12V</text>
+<path d="M1420,400 L1440,400" fill="none" stroke="#d33" stroke-width="2.2" stroke-linecap="round"/>
+<text x="1452" y="405" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#d33" text-anchor="start">R</text>
+<path d="M1420,460 L1440,460" fill="none" stroke="#1a9b4a" stroke-width="2.2" stroke-linecap="round"/>
+<text x="1452" y="465" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1a9b4a" text-anchor="start">G</text>
+<path d="M1420,520 L1440,520" fill="none" stroke="#2266dd" stroke-width="2.2" stroke-linecap="round"/>
+<text x="1452" y="525" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" fill="#2266dd" text-anchor="start">B</text>
+<path d="M1415,70 L1415,340 L1440,340" fill="none" stroke="#d33" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="1415" cy="70" r="4.5" fill="#d33"/>
+<text x="60" y="975" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#333" text-anchor="start">• All grounds are common: PSU −, buck −, U1 GND, MOSFET sources, J2 GND.</text>
+<text x="60" y="997" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#333" text-anchor="start">• C1/C2 sit at the module pins — the radio draws 300-400 mA spikes.</text>
+<text x="60" y="1019" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#333" text-anchor="start">• GPIO0 low at power-up = flash mode (hold SW2, tap SW1).</text>
+<text x="60" y="1041" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#333" text-anchor="start">• Q1-Q3 switch the low side; the strip's +12V goes straight to the PSU.</text>
+</svg>
