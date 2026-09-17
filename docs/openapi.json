@@ -4,7 +4,7 @@
     "title": "DeskLED",
     "version": "1.5.0",
     "summary": "RGB desk light controller (ESP8266)",
-    "description": "Controls an analog RGB LED strip: effects, colour, brightness, temporary effects and effect scripts, plus Wi-Fi, MQTT and firmware settings.\n\nAuthentication: every endpoint except /, /update (GET), /openapi.json and /api/login requires the admin account. Tools use HTTP Digest (user `admin`); the web UI uses a session cookie from /api/login. While the device runs its setup hotspot, authentication is skipped so the network can be configured.\n\nLimits: request bodies at most 4096 bytes (413 otherwise), at most 12 effect scripts, formulas at most 200 characters, script names 1-20 characters of a-z 0-9 - _. /api/info reports `fs_used`, `fs_total`, `scripts` and `scripts_max` so a client can see what is left.",
+    "description": "Controls an analog RGB LED strip: effects, colour, brightness, temporary effects and effect scripts, plus Wi-Fi, MQTT and firmware settings.\n\nAuthentication: every endpoint except /, /update (GET), /openapi.json and /api/login requires the admin account. Tools use HTTP Digest (user `admin`) or a bearer token; the web UI uses a session cookie from /api/login.\n\nBearer tokens let you give an app access without sharing the admin password. A `control` token may read and change the light, its effects and scripts; anything else (Wi-Fi, MQTT, passwords, tokens, reboot, firmware) needs the admin password or an `admin` token, and returns 403 for a control token. While the device runs its setup hotspot, authentication is skipped so the network can be configured.\n\nLimits: request bodies at most 4096 bytes (413 otherwise), at most 12 effect scripts, formulas at most 200 characters, script names 1-20 characters of a-z 0-9 - _. /api/info reports `fs_used`, `fs_total`, `scripts` and `scripts_max` so a client can see what is left.",
     "license": {
       "name": "MIT",
       "identifier": "MIT"
@@ -41,6 +41,10 @@
     {
       "name": "auth",
       "description": "Login and passwords"
+    },
+    {
+      "name": "tokens",
+      "description": "API tokens"
     }
   ],
   "security": [
@@ -49,6 +53,9 @@
     },
     {
       "session": []
+    },
+    {
+      "bearer": []
     }
   ],
   "paths": {
@@ -95,14 +102,15 @@
           "401": {
             "$ref": "#/components/responses/Unauthorized"
           }
-        }
+        },
+        "description": "Usable with a control or admin token."
       },
       "post": {
         "tags": [
           "light"
         ],
         "summary": "Change the state",
-        "description": "Only the fields present are changed. With `duration` the change is temporary: it is shown for that long, then the previous state returns and nothing is saved. Without it, the change is permanent and cancels any running temporary effect.",
+        "description": "Only the fields present are changed. With `duration` the change is temporary: it is shown for that long, then the previous state returns and nothing is saved. Without it, the change is permanent and cancels any running temporary effect.\n\nUsable with a control or admin token.",
         "operationId": "setState",
         "requestBody": {
           "required": true,
@@ -200,7 +208,8 @@
           "413": {
             "$ref": "#/components/responses/TooLarge"
           }
-        }
+        },
+        "description": "Usable with a control or admin token."
       }
     },
     "/api/state/temporary": {
@@ -209,7 +218,7 @@
           "light"
         ],
         "summary": "Cancel a temporary effect",
-        "description": "Restores the previous state at once. Does nothing if no temporary effect is running.",
+        "description": "Restores the previous state at once. Does nothing if no temporary effect is running.\n\nUsable with a control or admin token.",
         "operationId": "cancelTemporary",
         "responses": {
           "200": {
@@ -234,7 +243,7 @@
           "light"
         ],
         "summary": "Available effects",
-        "description": "Built-in effects followed by saved script names. Any of these is valid as `mode`.",
+        "description": "Built-in effects followed by saved script names. Any of these is valid as `mode`.\n\nUsable with a control or admin token.",
         "operationId": "listModes",
         "responses": {
           "200": {
@@ -288,7 +297,8 @@
           "401": {
             "$ref": "#/components/responses/Unauthorized"
           }
-        }
+        },
+        "description": "Usable with a control or admin token."
       }
     },
     "/api/scripts": {
@@ -315,14 +325,15 @@
           "401": {
             "$ref": "#/components/responses/Unauthorized"
           }
-        }
+        },
+        "description": "Usable with a control or admin token."
       },
       "post": {
         "tags": [
           "scripts"
         ],
         "summary": "Create or replace a script",
-        "description": "The formulas are compiled before saving; a syntax error is reported with its position. At most 12 scripts.",
+        "description": "The formulas are compiled before saving; a syntax error is reported with its position. At most 12 scripts.\n\nUsable with a control or admin token.",
         "operationId": "saveScript",
         "requestBody": {
           "required": true,
@@ -410,7 +421,8 @@
               }
             }
           }
-        }
+        },
+        "description": "Usable with a control or admin token."
       }
     },
     "/api/scripts/preview": {
@@ -419,7 +431,7 @@
           "scripts"
         ],
         "summary": "Try an unsaved script",
-        "description": "Runs the formulas as a temporary effect without storing them.",
+        "description": "Runs the formulas as a temporary effect without storing them.\n\nUsable with a control or admin token.",
         "operationId": "previewScript",
         "requestBody": {
           "required": true,
@@ -476,7 +488,7 @@
           "device"
         ],
         "summary": "Scan for Wi-Fi networks",
-        "description": "Scanning runs in the background: while `scanning` is true, call again in a second or so.",
+        "description": "Scanning runs in the background: while `scanning` is true, call again in a second or so.\n\nRequires the admin password or an admin token.",
         "operationId": "scanWifi",
         "responses": {
           "200": {
@@ -513,6 +525,9 @@
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
           }
         }
       }
@@ -523,7 +538,7 @@
           "device"
         ],
         "summary": "Save Wi-Fi settings",
-        "description": "The device reboots about 1.5 s after replying and joins the saved network. Send `ip` (with `gateway`, `subnet`, optional `dns`) for a static address, or `ip: \"\"` for DHCP.",
+        "description": "The device reboots about 1.5 s after replying and joins the saved network. Send `ip` (with `gateway`, `subnet`, optional `dns`) for a static address, or `ip: \"\"` for DHCP.\n\nRequires the admin password or an admin token.",
         "operationId": "setWifi",
         "requestBody": {
           "required": true,
@@ -605,6 +620,9 @@
           },
           "413": {
             "$ref": "#/components/responses/TooLarge"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
           }
         }
       },
@@ -613,7 +631,7 @@
           "device"
         ],
         "summary": "Forget the network",
-        "description": "Clears the credentials and reboots into the setup hotspot.",
+        "description": "Clears the credentials and reboots into the setup hotspot.\n\nRequires the admin password or an admin token.",
         "operationId": "clearWifi",
         "responses": {
           "200": {
@@ -636,6 +654,9 @@
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
           }
         }
       }
@@ -660,15 +681,19 @@
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
           }
-        }
+        },
+        "description": "Requires the admin password or an admin token."
       },
       "post": {
         "tags": [
           "device"
         ],
         "summary": "Change MQTT settings",
-        "description": "Applied immediately, without a reboot. Omit `password` to keep the stored one. With MQTT enabled the device publishes Home Assistant discovery under `deskled/<hostname>/`.",
+        "description": "Applied immediately, without a reboot. Omit `password` to keep the stored one. With MQTT enabled the device publishes Home Assistant discovery under `deskled/<hostname>/`.\n\nRequires the admin password or an admin token.",
         "operationId": "setMqtt",
         "requestBody": {
           "required": true,
@@ -723,6 +748,9 @@
           },
           "413": {
             "$ref": "#/components/responses/TooLarge"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
           }
         }
       }
@@ -859,7 +887,7 @@
           "auth"
         ],
         "summary": "Change the admin password",
-        "description": "Takes hashes rather than passwords: get a nonce from /api/login, then send `proof` = MD5(oldHA1 + \":\" + nonce), `ha1` = MD5(\"admin:DeskLED:<new>\") and `ota` = MD5(\"<new>\"). The device reboots and all sessions end. Length rules are enforced by the client.",
+        "description": "Takes hashes rather than passwords: get a nonce from /api/login, then send `proof` = MD5(oldHA1 + \":\" + nonce), `ha1` = MD5(\"admin:DeskLED:<new>\") and `ota` = MD5(\"<new>\"). The device reboots and all sessions end. Length rules are enforced by the client.\n\nRequires the admin password or an admin token.",
         "operationId": "setPassword",
         "requestBody": {
           "required": true,
@@ -917,14 +945,7 @@
             "$ref": "#/components/responses/Unauthorized"
           },
           "403": {
-            "description": "Current password is wrong",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
+            "$ref": "#/components/responses/Forbidden"
           },
           "413": {
             "$ref": "#/components/responses/TooLarge"
@@ -938,7 +959,7 @@
           "auth"
         ],
         "summary": "Change the setup hotspot password",
-        "description": "Used the next time the setup hotspot starts.",
+        "description": "Used the next time the setup hotspot starts.\n\nRequires the admin password or an admin token.",
         "operationId": "setApPassword",
         "requestBody": {
           "required": true,
@@ -984,6 +1005,9 @@
           },
           "413": {
             "$ref": "#/components/responses/TooLarge"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
           }
         }
       }
@@ -994,7 +1018,7 @@
           "device"
         ],
         "summary": "Reboot",
-        "description": "Replies first, then reboots about a second later. Settings are saved before restarting.",
+        "description": "Replies first, then reboots about a second later. Settings are saved before restarting.\n\nRequires the admin password or an admin token.",
         "operationId": "reboot",
         "responses": {
           "200": {
@@ -1014,6 +1038,9 @@
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
           }
         }
       }
@@ -1024,7 +1051,7 @@
           "device"
         ],
         "summary": "Install firmware",
-        "description": "Upload `firmware.signed.bin`. Images that are unsigned, or signed with another key, are rejected. On success the device reboots into the new firmware.",
+        "description": "Upload `firmware.signed.bin`. Images that are unsigned, or signed with another key, are rejected. On success the device reboots into the new firmware.\n\nRequires the admin password or an admin token.",
         "operationId": "updateFirmware",
         "requestBody": {
           "required": true,
@@ -1073,6 +1100,157 @@
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/api/tokens": {
+      "get": {
+        "tags": [
+          "tokens"
+        ],
+        "summary": "List tokens",
+        "operationId": "listTokens",
+        "description": "Names, scopes and ids only; the tokens themselves are never returned.\n\nRequires the admin password or an admin token.",
+        "responses": {
+          "200": {
+            "description": "Tokens",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TokenInfo"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "tokens"
+        ],
+        "summary": "Create a token",
+        "operationId": "createToken",
+        "description": "The token is returned once and only its hash is stored, so it cannot be recovered later. At most 8 tokens.\n\nRequires the admin password or an admin token.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 24,
+                    "description": "What the token is for"
+                  },
+                  "scope": {
+                    "type": "string",
+                    "enum": [
+                      "control",
+                      "admin"
+                    ],
+                    "default": "control"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    },
+                    "scope": {
+                      "type": "string"
+                    },
+                    "note": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "413": {
+            "$ref": "#/components/responses/TooLarge"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "tokens"
+        ],
+        "summary": "Revoke a token",
+        "operationId": "deleteToken",
+        "description": "Takes effect immediately.\n\nRequires the admin password or an admin token.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Token id from the list"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Revoked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "revoked": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
           }
         }
       }
@@ -1090,6 +1268,11 @@
         "in": "cookie",
         "name": "dl_session",
         "description": "Session cookie from /api/login, used by the web UI."
+      },
+      "bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "API token from /api/tokens. `control` tokens may use the light endpoints; `admin` tokens may use all of them."
       }
     },
     "responses": {
@@ -1125,6 +1308,16 @@
       },
       "TooLarge": {
         "description": "Request body larger than 4096 bytes",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "Forbidden": {
+        "description": "The token lacks the required scope",
         "content": {
           "application/json": {
             "schema": {
@@ -1423,6 +1616,25 @@
           "base_topic": {
             "type": "string",
             "description": "Topics live under this prefix: state, set, speed/set, availability"
+          }
+        }
+      },
+      "TokenInfo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Used to revoke it"
+          },
+          "name": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string",
+            "enum": [
+              "control",
+              "admin"
+            ]
           }
         }
       }

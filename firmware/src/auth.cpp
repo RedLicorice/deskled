@@ -2,6 +2,7 @@
 
 #include <LittleFS.h>
 #include <MD5Builder.h>
+#include <bearssl/bearssl_hash.h>
 
 #include "config.h"
 #include "console.h"
@@ -11,6 +12,7 @@ namespace {
 
 const char *AUTH_PATH = "/auth.json";
 const char *SESSIONS_PATH = "/sessions.json";
+const char *TOKENS_PATH = "/tokens.json";
 const char *REALM = "DeskLED";
 const char *COOKIE = "dl_session";
 const char *UI_HEADER = "X-DeskLED";  // sent by the web UI; its 401s must not trigger the browser's login dialog
@@ -27,6 +29,14 @@ String nonceSecret;
 bool staleNonce = false;
 
 String sessions[MAX_SESSIONS];  // MD5 of session tokens, oldest first
+
+struct Token {
+  String id;    // short public identifier, used to revoke
+  String name;  // what it is for, chosen by the user
+  String hash;  // SHA-256 of the secret; the secret itself is never stored
+  bool admin = false;
+};
+Token tokens[MAX_TOKENS];
 String usedNonces[USED_NONCES];
 size_t usedNonceNext = 0;
 
@@ -46,6 +56,22 @@ String randomHex(int words) {
     out += buf;
   }
   return out;
+}
+
+String sha256hex(const String &s) {
+  br_sha256_context ctx;
+  br_sha256_init(&ctx);
+  br_sha256_update(&ctx, s.c_str(), s.length());
+  uint8_t out[32];
+  br_sha256_out(&ctx, out);
+  String hex;
+  hex.reserve(64);
+  char buf[3];
+  for (uint8_t b : out) {
+    snprintf(buf, sizeof(buf), "%02x", b);
+    hex += buf;
+  }
+  return hex;
 }
 
 void deriveHashes(const String &password) {
@@ -137,6 +163,52 @@ bool saveAuth() {
   return writeJson(AUTH_PATH, doc);
 }
 
+void saveTokens() {
+  JsonDocument doc;
+  JsonArray arr = doc.to<JsonArray>();
+  for (const Token &t : tokens) {
+    if (!t.hash.length()) continue;
+    JsonObject o = arr.add<JsonObject>();
+    o["id"] = t.id;
+    o["name"] = t.name;
+    o["hash"] = t.hash;
+    o["admin"] = t.admin;
+  }
+  writeJson(TOKENS_PATH, doc);
+}
+
+void loadTokens() {
+  File f = LittleFS.open(TOKENS_PATH, "r");
+  if (!f) return;
+  JsonDocument doc;
+  if (!deserializeJson(doc, f)) {
+    size_t i = 0;
+    for (JsonObjectConst o : doc.as<JsonArrayConst>()) {
+      if (i >= MAX_TOKENS) break;
+      tokens[i].id = o["id"] | "";
+      tokens[i].name = o["name"] | "";
+      tokens[i].hash = o["hash"] | "";
+      tokens[i].admin = o["admin"] | false;
+      if (tokens[i].hash.length()) i++;
+    }
+  }
+  f.close();
+}
+
+// Authorization: Bearer <secret>
+Level bearerLevel(ESP8266WebServer &server) {
+  String header = server.header("Authorization");
+  if (!header.startsWith("Bearer ")) return Level::None;
+  String secret = header.substring(7);
+  secret.trim();
+  if (secret.length() < 8 || secret.length() > 80) return Level::None;
+  String hash = sha256hex(secret);
+  for (const Token &t : tokens) {
+    if (t.hash.length() && t.hash == hash) return t.admin ? Level::Admin : Level::Control;
+  }
+  return Level::None;
+}
+
 void saveSessions() {
   JsonDocument doc;
   JsonArray arr = doc.to<JsonArray>();
@@ -225,6 +297,8 @@ void begin() {
     Log.println(F("[auth] using the default admin password; change it in the web UI or with: password <new>"));
   }
 
+  loadTokens();
+
   f = LittleFS.open(SESSIONS_PATH, "r");
   if (f) {
     JsonDocument doc;
@@ -242,9 +316,14 @@ void collectHeaders(ESP8266WebServer &server) {
   server.collectHeaders("Cookie", UI_HEADER);  // Authorization is always collected
 }
 
-bool verify(ESP8266WebServer &server) {
+Level level(ESP8266WebServer &server) {
   staleNonce = false;
-  return validSession(server) || verifyDigest(server);
+  if (validSession(server) || verifyDigest(server)) return Level::Admin;
+  return bearerLevel(server);
+}
+
+bool verify(ESP8266WebServer &server, Level needed) {
+  return (uint8_t)level(server) >= (uint8_t)needed;
 }
 
 void challenge(ESP8266WebServer &server) {
@@ -256,9 +335,62 @@ void challenge(ESP8266WebServer &server) {
   sendJsonText(server, 401, F("{\"error\":\"authentication required\"}"));
 }
 
-bool check(ESP8266WebServer &server) {
-  if (verify(server)) return true;
+bool check(ESP8266WebServer &server, Level needed) {
+  Level have = level(server);
+  if ((uint8_t)have >= (uint8_t)needed) return true;
+  if (have == Level::Control && needed == Level::Admin) {
+    server.send(403, F("application/json"), F("{\"error\":\"this token may only control the light\"}"));
+    return false;
+  }
   challenge(server);
+  return false;
+}
+
+void listTokens(JsonArray out) {
+  for (const Token &t : tokens) {
+    if (!t.hash.length()) continue;
+    JsonObject o = out.add<JsonObject>();
+    o["id"] = t.id;
+    o["name"] = t.name;
+    o["scope"] = t.admin ? "admin" : "control";
+  }
+}
+
+bool createToken(const String &name, bool admin, String &secret, String &err) {
+  if (name.length() == 0 || name.length() > 24) {
+    err = F("name must be 1-24 characters");
+    return false;
+  }
+  Token *slot = nullptr;
+  for (Token &t : tokens) {
+    if (!t.hash.length()) {
+      slot = &t;
+      break;
+    }
+  }
+  if (!slot) {
+    err = String(F("at most ")) + MAX_TOKENS + F(" tokens; revoke one first");
+    return false;
+  }
+  secret = "dl_" + randomHex(4);
+  slot->id = randomHex(1).substring(0, 6);
+  slot->name = name;
+  slot->hash = sha256hex(secret);
+  slot->admin = admin;
+  saveTokens();
+  Log.printf("[auth] created %s token \"%s\" (%s)\n", admin ? "admin" : "control", name.c_str(), slot->id.c_str());
+  return true;
+}
+
+bool deleteToken(const String &id) {
+  for (Token &t : tokens) {
+    if (t.hash.length() && t.id == id) {
+      Log.printf("[auth] revoked token \"%s\" (%s)\n", t.name.c_str(), t.id.c_str());
+      t = Token();
+      saveTokens();
+      return true;
+    }
+  }
   return false;
 }
 

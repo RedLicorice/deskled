@@ -536,10 +536,50 @@ void handlePreviewScript() {
 
 
 // Wraps a handler so it requires login, except in setup AP mode where the Wi-Fi password protects access.
-std::function<void()> guarded(std::function<void()> handler) {
-  return [handler] {
-    if (apMode || auth::check(server)) handler();
+// Level::Control is enough for the light itself; everything else needs the admin password or an admin token.
+std::function<void()> guarded(std::function<void()> handler, auth::Level needed = auth::Level::Admin) {
+  return [handler, needed] {
+    if (apMode || auth::check(server, needed)) handler();
   };
+}
+
+// ---------- API tokens ----------
+
+void handleListTokens() {
+  JsonDocument doc;
+  auth::listTokens(doc.to<JsonArray>());
+  sendJson(200, doc);
+}
+
+// Body: name, scope ("control" or "admin"). The token is shown once and cannot be retrieved later.
+void handleCreateToken() {
+  JsonDocument doc;
+  if (!parseBody(doc)) return;
+  String scope = doc["scope"] | "control";
+  if (scope != "control" && scope != "admin") {
+    sendError(400, F("scope must be \"control\" or \"admin\""));
+    return;
+  }
+  String secret, err;
+  if (!auth::createToken(doc["name"] | "", scope == "admin", secret, err)) {
+    sendError(400, err);
+    return;
+  }
+  JsonDocument res;
+  res["token"] = secret;
+  res["scope"] = scope;
+  res["note"] = "store this now; it is not shown again";
+  sendJson(201, res);
+}
+
+void handleDeleteToken() {
+  if (!auth::deleteToken(server.arg("id"))) {
+    sendError(404, F("no such token"));
+    return;
+  }
+  JsonDocument res;
+  res["revoked"] = server.arg("id");
+  sendJson(200, res);
 }
 
 void setupServer() {
@@ -554,16 +594,20 @@ void setupServer() {
   server.on("/api/login", HTTP_POST, [] { auth::handleLogin(server); });
   server.on("/api/logout", HTTP_POST, [] { auth::handleLogout(server); });
 
-  server.on("/api/state", HTTP_GET, guarded(sendState));
-  server.on("/api/state", HTTP_POST, guarded(handleSetState));
-  server.on("/api/state", HTTP_PUT, guarded(handleSetState));
-  server.on("/api/state/temporary", HTTP_DELETE, guarded(handleCancelTemp));
-  server.on("/api/modes", HTTP_GET, guarded(handleModes));
-  server.on("/api/info", HTTP_GET, guarded(handleInfo));
-  server.on("/api/scripts", HTTP_GET, guarded(handleListScripts));
-  server.on("/api/scripts", HTTP_POST, guarded(handleSaveScript));
-  server.on("/api/scripts", HTTP_DELETE, guarded(handleDeleteScript));
-  server.on("/api/scripts/preview", HTTP_POST, guarded(handlePreviewScript));
+  const auth::Level CONTROL = auth::Level::Control;
+  server.on("/api/state", HTTP_GET, guarded(sendState, CONTROL));
+  server.on("/api/state", HTTP_POST, guarded(handleSetState, CONTROL));
+  server.on("/api/state", HTTP_PUT, guarded(handleSetState, CONTROL));
+  server.on("/api/state/temporary", HTTP_DELETE, guarded(handleCancelTemp, CONTROL));
+  server.on("/api/modes", HTTP_GET, guarded(handleModes, CONTROL));
+  server.on("/api/info", HTTP_GET, guarded(handleInfo, CONTROL));
+  server.on("/api/scripts", HTTP_GET, guarded(handleListScripts, CONTROL));
+  server.on("/api/scripts", HTTP_POST, guarded(handleSaveScript, CONTROL));
+  server.on("/api/scripts", HTTP_DELETE, guarded(handleDeleteScript, CONTROL));
+  server.on("/api/scripts/preview", HTTP_POST, guarded(handlePreviewScript, CONTROL));
+  server.on("/api/tokens", HTTP_GET, guarded(handleListTokens));
+  server.on("/api/tokens", HTTP_POST, guarded(handleCreateToken));
+  server.on("/api/tokens", HTTP_DELETE, guarded(handleDeleteToken));
   server.on("/api/wifi/scan", HTTP_GET, guarded(handleScan));
   server.on("/api/wifi", HTTP_POST, guarded(handleSetWifi));
   server.on("/api/wifi", HTTP_DELETE, guarded(handleClearWifi));

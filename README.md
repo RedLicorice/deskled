@@ -76,6 +76,19 @@ For Apple Home, add Home Assistant's HomeKit Bridge integration and include the 
 All endpoints except `/`, `/update` (GET), `/openapi.json` and `/api/login` require login
 (session cookie or HTTP Digest, user `admin`).
 
+### Tokens
+
+Rather than sharing the admin password, create an API token in the web UI (Security → API tokens) or with
+`POST /api/tokens`. A **control** token may work the light, effects and scripts; an **admin** token may change
+every setting. Tokens are shown once, stored only as a hash, survive reboots and can be revoked at any time.
+
+```sh
+curl -H "Authorization: Bearer dl_..." -X POST http://deskled-xxxx.local/api/state \
+  -d '{"mode":"solid","color":"#00ff88"}'
+```
+
+A control token gets `403` on Wi-Fi, MQTT, password, token, reboot and firmware endpoints. At most 8 tokens.
+
 The device serves its own OpenAPI 3.1 description at **`/openapi.json`**, so clients and code generators can
 discover the API. The source is [docs/openapi.json](docs/openapi.json); it is embedded at build time and its
 `info.version` is filled in from the firmware version.
@@ -93,6 +106,7 @@ discover the API. The source is [docs/openapi.json](docs/openapi.json); it is em
 | `POST /api/password`, `POST /api/ap-password` | Change admin or hotspot password |
 | `POST /api/reboot` | Reboot |
 | `POST /update` | Upload a signed firmware image |
+| `GET/POST/DELETE /api/tokens` | List, create or revoke API tokens (admin only) |
 | `GET /openapi.json` | API description (no login needed) |
 
 Example, as a tool with Digest auth:
@@ -112,6 +126,7 @@ Sizes are bounded so a client cannot fill the device or exhaust its memory:
 | Effect scripts | 12, each with three formulas of at most 200 characters |
 | Script names | 1-20 characters of `a-z 0-9 - _` |
 | Web sessions | 4 (oldest is dropped) |
+| API tokens | 8 |
 | Firmware image | must fit the free sketch space and carry a valid signature |
 
 `GET /api/info` reports `fs_used`, `fs_total`, `scripts` and `scripts_max`. Settings are only written to flash

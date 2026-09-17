@@ -12,18 +12,30 @@
 namespace auth {
 
 const char *const USERNAME = "admin";
+const size_t MAX_TOKENS = 8;
+
+// What a request is allowed to do. Bearer tokens can be limited to Control; the admin password is always Admin.
+enum class Level : uint8_t { None, Control, Admin };
 
 void begin();
 
 // Headers the web server must collect for authentication.
 void collectHeaders(ESP8266WebServer &server);
 
-// True if the request carries a valid session cookie or Digest credentials. Sends nothing.
-bool verify(ESP8266WebServer &server);
+// Access level of the request: session cookie, Digest credentials or a bearer token. Sends nothing.
+Level level(ESP8266WebServer &server);
+// True if the request is authenticated at least at `needed`. Sends nothing.
+bool verify(ESP8266WebServer &server, Level needed = Level::Admin);
 // Sends a 401: a Digest challenge for tools, or a plain 401 for the web UI (so the browser shows no dialog).
 void challenge(ESP8266WebServer &server);
 // verify() or challenge(); returns whether the handler may proceed.
-bool check(ESP8266WebServer &server);
+bool check(ESP8266WebServer &server, Level needed = Level::Admin);
+
+// API tokens. The token itself is returned once on creation and only its hash is stored.
+void listTokens(JsonArray out);
+// Creates a token; returns the secret in `secret`. name 1-24 chars, admin = full access.
+bool createToken(const String &name, bool admin, String &secret, String &err);
+bool deleteToken(const String &id);
 
 // Web UI login: GET returns a single-use nonce; POST {nonce, response = MD5(HA1 ":" nonce)} sets a session cookie.
 void handleLoginChallenge(ESP8266WebServer &server);

@@ -151,6 +151,17 @@ details>summary{cursor:pointer}
       <div id="pwMsg" class="dim"></div>
     </div>
   </details>
+  <details id="tokBox"><summary class="dim">API tokens</summary>
+    <div class="stack" style="margin-top:10px">
+      <small>Give an app its own token instead of the admin password. A <b>control</b> token can only work the
+      light; an <b>admin</b> token can change every setting. Tokens are shown once.</small>
+      <div id="tokList" class="dim"></div>
+      <input type="text" id="tokName" placeholder="What is it for? (e.g. home-assistant)" autocomplete="off">
+      <select id="tokScope"><option value="control">control — light only</option><option value="admin">admin — full access</option></select>
+      <button class="primary" id="tokAdd">Create token</button>
+      <div id="tokNew" class="dim" style="word-break:break-all"></div>
+    </div>
+  </details>
   <details><summary class="dim">Setup hotspot password</summary>
     <div class="stack" style="margin-top:10px">
       <small>Protects the DeskLED-xxxx hotspot that appears when Wi-Fi fails.</small>
@@ -365,6 +376,25 @@ $('pwSave').onclick=()=>{
       ha1:md5(c.user+':'+c.realm+':'+nw),ota:md5(nw)}))
     .then(()=>{$('pwMsg').textContent='Changed. The device reboots; log in again with the new password.';setTimeout(()=>location.reload(),6000)})
     .catch(e=>$('pwMsg').textContent='Error: '+e.message);
+};
+function loadTokens(){
+  return api('/api/tokens').then(ts=>{
+    $('tokList').innerHTML = ts.length ? '' : 'No tokens yet.';
+    ts.forEach(t=>{
+      const row=document.createElement('div');row.className='btns';row.style.margin='6px 0';
+      row.innerHTML='<span style="flex:1">'+esc(t.name)+' <span class="dim">('+esc(t.scope)+')</span></span>';
+      const b=document.createElement('button');b.className='danger';b.textContent='Revoke';
+      b.onclick=()=>{if(confirm('Revoke "'+t.name+'"?'))api('/api/tokens?id='+encodeURIComponent(t.id),'DELETE').then(loadTokens)};
+      row.appendChild(b);$('tokList').appendChild(row);
+    });
+  });
+}
+$('tokBox').addEventListener('toggle',()=>{if($('tokBox').open)loadTokens()});
+$('tokAdd').onclick=()=>{
+  $('tokNew').className='dim';$('tokNew').textContent='Creating…';
+  api('/api/tokens','POST',{name:$('tokName').value.trim(),scope:$('tokScope').value})
+    .then(r=>{$('tokNew').innerHTML='<b>'+esc(r.token)+'</b><br>Copy it now — it is not shown again.';$('tokName').value='';loadTokens()})
+    .catch(e=>{$('tokNew').className='err';$('tokNew').textContent=e.message});
 };
 $('apSave').onclick=()=>{
   $('apMsg').textContent='Saving…';
