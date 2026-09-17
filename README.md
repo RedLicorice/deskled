@@ -73,7 +73,12 @@ For Apple Home, add Home Assistant's HomeKit Bridge integration and include the 
 
 ## API
 
-All endpoints except `/`, `/update` (GET) and `/api/login` require login (session cookie or HTTP Digest, user `admin`).
+All endpoints except `/`, `/update` (GET), `/openapi.json` and `/api/login` require login
+(session cookie or HTTP Digest, user `admin`).
+
+The device serves its own OpenAPI 3.1 description at **`/openapi.json`**, so clients and code generators can
+discover the API. The source is [docs/openapi.json](docs/openapi.json); it is embedded at build time and its
+`info.version` is filled in from the firmware version.
 
 | Endpoint | Description |
 |---|---|
@@ -88,6 +93,7 @@ All endpoints except `/`, `/update` (GET) and `/api/login` require login (sessio
 | `POST /api/password`, `POST /api/ap-password` | Change admin or hotspot password |
 | `POST /api/reboot` | Reboot |
 | `POST /update` | Upload a signed firmware image |
+| `GET /openapi.json` | API description (no login needed) |
 
 Example, as a tool with Digest auth:
 

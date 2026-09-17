@@ -16,6 +16,7 @@
 #include "scripts.h"
 #include "storage.h"
 #include "web_ui.h"
+#include "openapi_json.h"
 #include "signing_pubkey.h"
 
 namespace {
@@ -529,6 +530,8 @@ void setupServer() {
   // pages are static and hold no secrets; everything they load goes through the API
   server.on("/", HTTP_GET, [] { server.send_P(200, "text/html", INDEX_HTML); });
   server.on("/update", HTTP_GET, [] { server.send_P(200, "text/html", UPDATE_HTML); });
+  // API description for clients that discover endpoints themselves
+  server.on("/openapi.json", HTTP_GET, [] { server.send_P(200, "application/json", OPENAPI_JSON); });
   server.on("/api/login", HTTP_GET, [] { auth::handleLoginChallenge(server); });
   server.on("/api/login", HTTP_POST, [] { auth::handleLogin(server); });
   server.on("/api/logout", HTTP_POST, [] { auth::handleLogout(server); });

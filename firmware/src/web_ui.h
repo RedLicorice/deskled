@@ -58,7 +58,7 @@ details>summary{cursor:pointer}
 
 <main id="app" hidden>
 <h1><span id="swatch"></span>DeskLED<button id="logout">Log out</button></h1>
-<section id="pwWarn" hidden style="border-color:var(--acc)"><b>Default password in use.</b> <span class="dim">Change it under Security below.</span></section>
+<section id="pwWarn" hidden style="border-color:var(--acc);cursor:pointer"><b>Default password in use.</b> <span class="dim">Tap here to change it.</span></section>
 
 <section>
   <button id="power">Power</button>
@@ -162,7 +162,7 @@ details>summary{cursor:pointer}
 </section>
 
 <section><h2>Device</h2><div id="dev" class="dim"></div>
-  <p class="dim">Firmware update (signed images only): <a href="/update" style="color:var(--acc)">/update</a></p>
+  <p class="dim">Firmware update (signed images only): <a href="/update" style="color:var(--acc)">/update</a><br>API description: <a href="/openapi.json" style="color:var(--acc)">/openapi.json</a></p>
 </section>
 </main>
 
@@ -326,6 +326,11 @@ function scan(){
     if(!r.networks.length)$('nets').innerHTML='<span class="dim">No networks found</span>';
   }).catch(e=>$('nets').textContent=e.message);
 }
+$('pwWarn').onclick=()=>{
+  $('pwBox').open=true;
+  $('pwBox').scrollIntoView({behavior:'smooth',block:'center'});
+  setTimeout(()=>$('pwCur').focus(),400);
+};
 $('scan').onclick=scan;
 $('save').onclick=()=>{
   if(!$('ssid').value){$('msg').textContent='Enter a network name.';return}
