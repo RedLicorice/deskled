@@ -15,7 +15,11 @@ IRLZ34N low-side MOSFETs on GPIO12 (red), GPIO13 (green) and GPIO14 (blue).
 - Admin login: session login in the web UI, HTTP Digest for tools; passwords are never stored in plain text
 - MQTT with Home Assistant discovery — **untested**, no broker was available during development
 
-## Hardware notes
+## Hardware
+
+Bill of materials, schematic and wiring tables: [HARDWARE.md](HARDWARE.md).
+
+### Notes
 
 - Add 100Ω in series and 10kΩ gate-to-GND on each MOSFET gate, otherwise the LEDs light up while the ESP boots.
 - The ESP8266 draws ~300-400 mA spikes when the radio transmits. A weak 3.3V supply causes resets and
