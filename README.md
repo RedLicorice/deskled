@@ -102,6 +102,21 @@ curl --digest -u admin:PASSWORD -X POST http://deskled-xxxx.local/api/state \
   -d '{"mode":"strobe","color":"#ff0000","duration":10000}'
 ```
 
+## Limits
+
+Sizes are bounded so a client cannot fill the device or exhaust its memory:
+
+| Limit | Value |
+|---|---|
+| Request body | 4096 bytes (`413` beyond that) |
+| Effect scripts | 12, each with three formulas of at most 200 characters |
+| Script names | 1-20 characters of `a-z 0-9 - _` |
+| Web sessions | 4 (oldest is dropped) |
+| Firmware image | must fit the free sketch space and carry a valid signature |
+
+`GET /api/info` reports `fs_used`, `fs_total`, `scripts` and `scripts_max`. Settings are only written to flash
+when they actually change, and at most once every 5 seconds, so repeated API calls do not wear it out.
+
 ## License
 
 MIT, see [LICENSE](LICENSE).

@@ -118,7 +118,14 @@ bool loadState(LedState &out) {
 bool saveState(const LedState &s) {
   JsonDocument doc;
   stateToJson(s, doc.to<JsonObject>());
-  return writeJson(STATE_PATH, doc);
+  // skip identical writes: repeated API calls should not wear out the flash
+  static String lastSaved;
+  String json;
+  serializeJson(doc, json);
+  if (json == lastSaved) return true;
+  if (!writeJson(STATE_PATH, doc)) return false;
+  lastSaved = json;
+  return true;
 }
 
 bool loadWifi(WifiConfig &out) {

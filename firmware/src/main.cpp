@@ -5,6 +5,7 @@
 #include <ESP8266WebServer.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266mDNS.h>
+#include <LittleFS.h>
 
 #include <vector>
 
@@ -84,9 +85,16 @@ void sendError(int code, const String &msg) {
   sendJson(code, doc);
 }
 
+// Request bodies are small by design; the largest is a script with three 200-character formulas.
+const size_t MAX_BODY_BYTES = 4096;
+
 bool parseBody(JsonDocument &doc) {
   if (!server.hasArg("plain")) {
     sendError(400, F("missing JSON body"));
+    return false;
+  }
+  if (server.arg("plain").length() > MAX_BODY_BYTES) {
+    sendError(413, String(F("body must be at most ")) + MAX_BODY_BYTES + F(" bytes"));
     return false;
   }
   DeserializationError e = deserializeJson(doc, server.arg("plain"));
@@ -255,6 +263,16 @@ void handleInfo() {
   doc["reset_reason"] = ESP.getResetReason();
   doc["mqtt_connected"] = mqtt::connected();
   doc["default_password"] = auth::isDefaultPassword();
+  FSInfo fs;
+  if (LittleFS.info(fs)) {
+    doc["fs_used"] = fs.usedBytes;
+    doc["fs_total"] = fs.totalBytes;
+  }
+  JsonArray effects = doc["_tmp"].to<JsonArray>();
+  scripts::list(effects, false);
+  doc["scripts"] = effects.size();
+  doc["scripts_max"] = scripts::MAX_SCRIPTS;
+  doc.remove("_tmp");
   sendJson(200, doc);
 }
 
