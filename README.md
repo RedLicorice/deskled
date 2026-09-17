@@ -29,9 +29,9 @@ Requires [PlatformIO](https://platformio.org/).
 ```sh
 cd firmware
 
-# once: create the signing key pair (keep private.key safe and out of version control)
-openssl genrsa -out keys/private.key 2048
-openssl rsa -in keys/private.key -outform PEM -pubout -out keys/public.key
+# once: create your own signing key pair (replaces the public.key in this repo;
+# keep keys/private.key secret and backed up, it is gitignored)
+scripts/genkeys.sh
 
 # first flash over serial: hold GPIO0 low and reset the module
 pio run -e tywe3l -t upload
@@ -74,6 +74,10 @@ Example, as a tool with Digest auth:
 curl --digest -u admin:PASSWORD -X POST http://deskled-xxxx.local/api/state \
   -d '{"mode":"strobe","color":"#ff0000","duration":10000}'
 ```
+
+## License
+
+MIT, see [LICENSE](LICENSE).
 
 ## Third-party code
 
